@@ -1,0 +1,30 @@
+Steps of Apriori
+
+make arff file first using nodepad++
+open weka - > explorer -> open arff file -> select associate -> select apriori -> start
+
+steps for classification
+
+1. create the file for training
+
+2. Create the file for testing
+(save both file with .arff - "filename.arff")
+
+3. Open weka-> tools -> arff viewer -> check the arff file is correct or not(any error or not)
+
+4. Open weka -> explorer -> Preprocess -> Open file-> choose the training file
+
+5. go to Classify -> Click on Choose -> Trees folder -> Choose J48
+
+6. in Test options -> select Use training set -> click on start 
+
+7. Check the  J48 pruned tree and Summary 
+
+
+(Right-click on output file click on Visualize tree)
+
+8. Go to Test options -> select Supplied test set ->click on set -> open file -> Select the test file -> close
+
+9. Click on More option -> Output predictions -> choose PlainText ->ok -> Start 
+
+10. Check Predictions on test set and summary (correctly or incorrectly calssify)
