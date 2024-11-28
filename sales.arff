@@ -1,0 +1,28 @@
+@relation sales
+
+@attribute company{samsung,vivo,oppo,other}
+@attribute battery{inbulit,external}
+@attribute simcard{single,double}
+@attribute os{android,ios,other}
+@attribute displaysize{small,medium,large}
+@attribute scrrentype{srystal,simple}
+@attribute chargetype{simple,c-type}
+
+@data
+samsung,inbulit,single,android,small,srystal,simple
+vivo,inbulit,single,android,small,srystal,simple
+oppo,external,double,ios,medium,srystal,c-type
+other,external,double,other,medium,simple,c-type
+samsung,external,single,android,small,simple,c-type
+vivo,inbulit,single,android,small,simple,c-type
+oppo,inbulit,single,ios,medium,simple,simple
+other,external,double,ios,large,simple,c-type
+samsung,inbulit,double,ios,medium,simple,c-type
+vivo,inbulit,single,android,small,srystal,c-type
+oppo,external,double,other,medium,simple,c-type
+other,external,double,other,medium,simple,c-type
+vivo,inbulit,single,android,small,simple,c-type
+oppo,inbulit,single,ios,medium,simple,simple
+other,external,double,ios,large,simple,c-type
+samsung,inbulit,double,ios,medium,simple,c-type
+vivo,inbulit,single,android,small,srystal,c-type
