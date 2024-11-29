@@ -1,0 +1,497 @@
+# ARM algo
+
+#ARM algoritm
+
+#tran=[]
+#temp=[]
+#ni = int(input("how many transactionyou want: "))
+#for i in range(ni):
+#    nj = int(input("number of items transactionyou want: "))
+#    for j in range(nj):
+#        k = input("enter item: ")
+#        temp.append(k)
+#    tran.append(temp)
+#    temp=[]
+tran=[['a','b','c'],['a','d'],['c','e','f']]
+print(tran)
+
+#c1 list
+c1=[]
+for i in tran:
+    for j in i:
+        if j not in c1:
+            c1.append(j)
+print(c1)
+
+#c1 count
+cnt =0
+for i in c1:
+    for j in tran:
+        for k in j:
+            if(k==i):
+                cnt+=1
+    print(f"{i}:{cnt}")
+    cnt =0
+
+#c2 list
+c2=[]
+temp=[]
+i=0
+l = len(c1)
+for i in range(l):
+    j =i+1
+    for p in range(j,l):
+        if p not in c2:
+            temp.append(c1[i])
+            temp.append(c1[j])
+            c2.append(temp)
+            temp=[]
+            j+=1
+    i+=1
+print(c2)
+
+#c2 count
+
+countitem2=[]
+for i in c2:
+    count2=0
+    for j in tran:
+        flag =True
+        for p in i:
+            if p not in j:
+                flag = False
+                break
+        if flag:
+            count2+=1
+    print(f"{i}: {count2}")
+
+#c3 list
+c3=[]
+for i in range(len(c1)):
+    for j in range(i+1,len(c1)):
+        for k in range(j+1,len(c1)):
+            c3.append([c1[i],c1[j],c1[k]])
+print(c3)
+
+#count c3
+countitem3=[]
+for i in c3:
+    count3=0
+    for j in tran:
+        flag = True
+        for p in i:
+            if p not in j:
+                flag = False
+                break
+        if flag:
+            count3+=1
+    print(f"{i}:{count3}")
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+#binning by mean & boundary
+
+data=[]
+ni = int(input("how many items you want: "))
+for i in range(ni):
+    k = int(input("enter value: "))
+    data.append(k)
+
+data.sort()
+
+bin_size = int(input("ente bins sizes: "))
+bins=[]
+i=0
+binned_by_mean_data=[]
+binned_by_boundary=[]
+
+while i < len(data):
+    bin_values = data[i:i + bin_size]
+    bins.append(bin_values)
+    mean_value = sum(bin_values) / len(bin_values)
+    for value in bin_values:
+        binned_by_mean_data.append(mean_value)
+    i += bin_size
+
+i=0
+for bin_values in bins:
+    min_value = min(bin_values)
+    max_value = max(bin_values)
+    for value in bin_values:
+        if abs(value - min_value) < abs(value - max_value):
+            binned_by_boundary.append(min_value)
+        else :
+            binned_by_boundary.append(max_value)
+
+
+
+print("\n original data: ", data)
+print("\nbins ",)
+
+for idx,bin_values in enumerate(bins,1):
+    print(f"bins{idx} : {bin_values}")
+
+print("\n mean: ", binned_by_mean_data)
+print("\n boundary: ", binned_by_boundary)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#clustering
+
+data =[]
+ni =int(input("how many data you want: "))
+for i in range(ni):
+    k = int(input("enetr data: "))
+    data.append(k)
+
+k = int(input("enter number of cluster you want: "))
+
+clusters =[]
+
+cluster_size = len(data) // k
+extra = len(data) % k
+
+start =0
+
+for i in range(k):
+    end = start + cluster_size + (1 if i < extra else 0)
+    clusters.append(data[start:end])
+    start = end
+
+print("original data : ",data)
+print("clusters: ")
+
+for cluster in clusters:
+    print(f"cluster {clusters.index(cluster) +1} : {cluster}")
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+min_max_normalization
+data =[]
+ni= int(input("enter the number of value: "))
+for i in range(ni):
+    k = int(input("enter value: "))
+    data.append(k)
+
+
+min_value = min(data)
+max_value = max(data)
+
+new_min = int(input("enter new min value: "))
+new_max = int(input("enter new max value: "))
+
+max_min_normalized_data =[]
+
+for value in data:
+    normalized_value = ((value - min_value) / (max_value -min_value)) * (new_max - new_min) + new_min
+    max_min_normalized_data.append(normalized_value)
+
+print("original_data : ",data)
+print("normalized data: ",max_min_normalized_data)
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+classification
+
+attribute = ["subject", "exam_type", "no_of_exam", "component", "result", "mode_exam"]
+value = ["DA/AWD/IOT","Internal/External","Single/Double","Laptop/PC/Tab","Pass/Fail","Online/Offline"]
+
+data = [
+    ["DA", "Internal", "Single", "Laptop", "Pass", "Offline"],
+    ["DA", "External", "Single", "Laptop", "Pass", "Online"],
+    ["DA", "Internal", "Double", "PC", "Pass", "Online"],
+    ["DA", "External", "Double", "Tab", "Fail", "Offline"],
+    ["DA", "Internal", "Single", "PC", "Pass", "Offline"],
+    ["DA", "External", "Double", "Tab", "Fail", "Offline"],
+    ["DA", "Internal", "Double", "Tab", "Pass", "Offline"],
+    ["DA", "External", "Double", "Laptop", "Pass", "Online"],
+    ["AWD", "Internal", "Single", "PC", "Fail", "Offline"],
+    ["AWD", "Internal", "Single", "Laptop", "Pass", "Online"],
+    ["AWD", "Internal", "Single", "PC", "Fail", "Offline"],
+    ["AWD", "External", "Double", "Tab", "Fail", "Offline"],
+    ["IOT", "Internal", "Double", "Tab", "Fail", "Online"],
+    ["IOT", "External", "Single", "Laptop", "Pass", "Online"],
+    ["IOT", "Internal", "Single", "Tab", "Fail", "Online"],
+    ["IOT", "Internal", "Double", "Laptop", "Pass", "Online"],
+    ["IOT", "Internal", "Single", "Tab", "Fail", "Offline"],
+    ["IOT", "External", "Double", "Tab", "Fail", "Online"]
+]
+
+classified_results = []
+
+for exam in data:
+    subject, exam_type, no_of_exam, component, result, mode_exam = exam
+
+    if subject == "DA" and result == "Pass":
+        classification = "Good Performance"
+    elif subject == "AWD" and result == "Fail":
+        classification = "Needs Improvement"
+    elif subject == "IOT" and result == "Fail" and no_of_exam == "Single":
+        classification = "Retake Recommended"
+    elif exam_type == "External" and result == "Pass":
+        classification = "Excellent"
+    else:
+        classification = "Average"
+
+    classified_results.append((exam, classification))
+
+for exam, classification in classified_results:
+    print(f"Exam: {exam} -> Classification: {classification}")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1.Implement clustering program using Density based approach.
+
+
+i1 = []
+k = 3
+k1 = []
+k2 = []
+k3 = []
+n = input("Enter number of observation")
+n = int(n)
+for i in range(n):
+    t = input("Enter value")
+    t = int(t)
+    i1.append(t)
+i = 0
+while(i<n):
+    k1.append(i1[i])
+    if(i + 1 < n):
+        k2.append(i1[i + 1])
+    if(i + 2 < n):
+        k3.append(i1[i + 2])
+    i = i + 3
+
+print(i1)
+print(k1)
+print(k2)
+print(k3)
+    
+k1m = sum(k1) / len(k1)
+k2m = sum(k2) / len(k2)
+k3m = sum(k3) / len(k3)
+swap = True
+while(swap):
+    swap = False
+    for i in k1:
+        d1 = abs(i - k1m)
+        d2 = abs(i - k2m)
+        d3 = abs(i - k3m)
+        if((d1<d2) and (d1<d3)):
+            print(str(i) + " is correctly placed in a given cluster")
+        elif(d2<d3):
+            temp = k1.remove(i)
+            k2.append(i)
+            swap = True
+        else:
+            temp = k1.remove(i)
+            k3.append(i)
+            swap = True
+    for i in k2:
+        d1 = abs(i - k1m)
+        d2 = abs(i - k2m)
+        d3 = abs(i - k3m)
+        if((d2<d1) and (d2<d3)):
+            print(str(i) + " is correctly placed in a given cluster")
+        elif(d1<d3):
+            temp = k2.remove(i)
+            k1.append(i)
+            swap = True
+        else:
+            temp = k2.remove(i)
+            k3.append(i)
+            swap = True
+    for i in k3:
+        d1 = abs(i - k1m)
+        d2 = abs(i - k2m)
+        d3 = abs(i - k3m)
+        if((d3<d1) and (d3<d2)):
+            print(str(i) + " is correctly placed in a given cluster")
+        elif(d1<d2):
+            temp = k3.remove(i)
+            k1.append(i)
+            swap = True
+        else:
+            temp = k3.remove(i)
+            k2.append(i)
+            swap = True
+    k1m = sum(k1) / len(k1)
+    k2m = sum(k2) / len(k2)
+    k3m = sum(k3) / len(k3)
+
+print(i1)
+print(k1)
+print(k2)
+print(k3)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+classify based on given rule
+# Function to classify based on age
+def classify_based_on_age(age):
+    if age < 18:
+        return "Class A"
+    elif 18 <= age <= 60:
+        return "Class B"
+    else:
+        return "Class C"
+
+# Input: Get the number of data points and their ages
+n = int(input("Enter the number of people to classify: "))
+ages = [int(input(f"Enter age of person {i+1}: ")) for i in range(n)]
+
+# Classify each person based on the given rule
+classifications = [classify_based_on_age(age) for age in ages]
+
+# Output: Display the classifications
+for i, age in enumerate(ages):
+    print(f"Person {i+1} (Age: {age}) belongs to {classifications[i]}")
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+install.packages("ggplot2")
+library(ggplot2) 
+
+car_data <- data.frame( 
+  
+  model = c("Toyota", "Honda", "Ford", "BMW", "Audi"), 
+  
+  mpg = c(30, 35, 25, 20, 18), 
+  
+  hp = c(120, 150, 200, 250, 280) 
+  
+) 
+
+print(car_data) 
+
+ggplot(data = car_data, aes(x = hp, y = mpg)) + 
+  
+  geom_point(color = "blue", size = 3) +           # Scatter plot points 
+  
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  # Add a regression line 
+  
+  labs(title = "Relationship between Horsepower and MPG", 
+       
+       x = "Horsepower (hp)", 
+       
+       y = "Miles Per Gallon (mpg)") + 
+  
+  theme_minimal() 
+
+
+
+#simple scatter plot on iris data
+
+df_iris <- data.frame(iris) 
+df_iris
+
+ggplot(df_iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point() +
+  labs(title = "Sepal Length vs Sepal Width", x = "Sepal Length", y = "Sepal Width") + theme_minimal()
+
+#bar graph on studnet data 
+#Student Example: 
+  
+sdata <- data.frame(sname = c("Jaimin", "Sachin", "Virat"), savg = c(33, 22, 55), scity = c("Bvn", "Srt", "Bmm")) 
+
+ggplot(sdata, aes(x = sname, y = savg, fill = scity)) + geom_bar(stat = "identity") + labs(title = "Average Scores by Player", x = "Player Name", y = "Average Score") + theme_minimal() 
+
+
+
+
+
+    
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+        
